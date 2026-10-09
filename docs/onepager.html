@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  @page { size: A4; margin: 14mm 14mm 12mm 14mm; }
+  body { font-family: "Noto Sans", sans-serif; color: #1a1f2b; font-size: 9.2pt; line-height: 1.42; }
+  h1 { font-size: 19pt; margin: 0 0 2mm; color: #0b5ea8; }
+  .sub { font-size: 10pt; color: #556; margin-bottom: 4mm; }
+  h2 { font-size: 11pt; color: #0b5ea8; margin: 4mm 0 1.5mm; border-bottom: 0.5pt solid #cdd8e4; padding-bottom: 0.8mm; }
+  p { margin: 0 0 2mm; }
+  ul { margin: 0 0 2mm 5mm; padding: 0; }
+  li { margin-bottom: 1.2mm; }
+  .tag { display: inline-block; background: #e8f0fa; color: #0b5ea8; border-radius: 3pt; padding: 0.6mm 2mm; font-size: 8.2pt; margin-right: 1.5mm; }
+  .safety { background: #fff7e6; border: 0.6pt solid #e8c46a; border-radius: 3pt; padding: 2.5mm 3mm; margin: 2mm 0; }
+  .footer { margin-top: 3mm; font-size: 8.2pt; color: #667; }
+  b { color: #0b3d6e; }
+</style>
+</head>
+<body>
+
+<h1>MedTimeline — your family's health story, organized</h1>
+<div class="sub">DSH Hacks V2 · Theme: AI × Healthcare<br>
+Built by 十字架 maebahesioru · github.com/maebahesioru/medtimeline</div>
+
+<h2>Purpose</h2>
+<p>When you care for an aging parent or manage a chronic condition, medical documents arrive
+scattered: a lab report from March, a follow-up in September, a discharge summary from a
+hospital visit. No one shows you the <b>story</b> — that HbA1c is trending up, that ferritin
+is falling, that a value flagged HIGH in September was borderline in March. Caregivers become
+accidental data managers, with no tools built for them. <b>MedTimeline turns scattered reports
+into one chronological health story</b> — with trends, flagged values, and questions for the
+next appointment — and answers every question with citations to the exact line.</p>
+
+<h2>Key features</h2>
+<ul>
+  <li><b>Multi-document ingestion</b> — upload reports from any dates (PDF / TXT / MD); every
+      passage keeps its exact origin.</li>
+  <li><b>Chronological timeline</b> — reports and measurements assembled into one dated story
+      across all documents.</li>
+  <li><b>Trend detection</b> — repeated measurements compared across dates (e.g. "Ferritin:
+      22 ng/mL (2026-03) → 9 ng/mL (2026-09) — falling"), both values and dates shown.</li>
+  <li><b>Flagged values</b> — LOW/HIGH results surfaced with their reference ranges, straight
+      from the documents.</li>
+  <li><b>Appointment prep</b> — auto-generated questions for the next visit, built from the
+      trends and flags ("HbA1c rose from 5.6 to 5.9 — what could explain this?").</li>
+  <li><b>🔊 Spoken questions</b> — one button reads the appointment questions aloud.</li>
+  <li><b>Grounded Q&amp;A</b> — ask anything about the documents; answers cite the exact line
+      and compare values across reports; off-document questions are declined.</li>
+</ul>
+
+<div class="safety">
+<b>Safety by design:</b> MedTimeline is an organizer and translator, not a doctor. It never
+diagnoses, never prescribes, and does not interpret symptoms. Answers are restricted to
+retrieved excerpts of the uploaded documents; off-document questions return an explicit
+refusal. Appointment questions are phrased as questions <i>for your clinician</i>. The bundled
+sample reports are entirely synthetic (fictional patient data), and documents stay on the
+user's machine in this prototype.
+</div>
+
+<h2>How it works</h2>
+<p>Python + FastAPI backend; single-page web UI (no build step). Timeline extraction parses
+dated report rows into events, groups repeated measurements, and computes trends
+(rising/falling/stable) with source links. Retrieval is scikit-learn TF-IDF (local, any
+language); generation is retrieval-scoped with mandatory citations and an explicit refusal
+token. Audio uses edge-tts with content-hash caching. Any OpenAI-compatible LLM endpoint can
+be configured.</p>
+
+<h2>Impact</h2>
+<ul>
+  <li><b>Caregivers</b> — the person managing a parent's care finally sees the whole story.</li>
+  <li><b>Continuity</b> — trends across providers and dates, which no single report shows.</li>
+  <li><b>Preparedness</b> — arrive at appointments with specific, document-grounded questions.</li>
+  <li><b>Safety</b> — grounded answers, honest refusals, and clinician handoff.</li>
+</ul>
+
+<div class="footer">
+<span class="tag">python</span><span class="tag">fastapi</span><span class="tag">scikit-learn</span><span class="tag">edge-tts</span><span class="tag">LLM</span><span class="tag">RAG</span><span class="tag">caregiving</span><br>
+Demo video: youtu.be/… (unlisted) · Code: github.com/maebahesioru/medtimeline<br>
+MedTimeline is not a medical device and is not for emergencies. Always consult a qualified clinician.
+</div>
+
+</body>
+</html>
